@@ -14,7 +14,6 @@ module.exports = {
         prompt: "Human: "+input+"\nAI: ",
         max_tokens: 4000,
         n: 1,
-        stop: '\n',
         temperature: .8
       }, {
         headers: {
