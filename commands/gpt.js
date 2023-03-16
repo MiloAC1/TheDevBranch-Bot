@@ -11,7 +11,7 @@ module.exports = {
     const input = interaction.options.getString('input');
     try {
       const response = await axios.post('https://api.openai.com/v1/engines/text-davinci-002/completions', {
-        prompt: "Human: "+input+"\n AI: ",
+        prompt: "Human: "+input+"\nAI: ",
         max_tokens: 4000,
         n: 1,
         stop: '\n',
