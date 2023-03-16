@@ -10,7 +10,7 @@ module.exports = {
   async execute(interaction) {
     const input = interaction.options.getString('input');
     try {
-      const response = await axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', {
+      const response = await axios.post('https://api.openai.com/v1/engines/davinci/completions', {
         prompt: input,
         max_tokens: 4000,
         n: 1,
