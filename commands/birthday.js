@@ -40,8 +40,14 @@ module.exports = {
         } else if (interaction.options.getSubcommand() === 'set-birthday') {
             const Day = interaction.options.getString('day');
             const Month = interaction.options.getString('month');
-            const Year = interaction.options.getString('year');
-            const date = Month + '-' + Day + '-' + Year
+            const Year = interaction.options.getString('year')
+
+            if (Year == null) {
+                 date = Month + '-' + Day
+            } else {
+                 date = Month + '-' + Day + '-' + Year
+            }
+
             const userId = interaction.user.id;
             
             // Load existing birthdays from file
