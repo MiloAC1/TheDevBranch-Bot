@@ -19,7 +19,7 @@ module.exports = {
       }, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${'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'}`
+          'Authorization': `Bearer ${'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'}`
         }
       });
       const message = response.data.choices[0].text;
