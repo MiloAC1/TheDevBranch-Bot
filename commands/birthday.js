@@ -6,11 +6,21 @@ module.exports = {
         .setName('birthday')
         .setDescription('Record your birthday.')
         .addStringOption(option =>
-            option.setName('date')
+            option.setName('month')
+                .setDescription('Enter your month')
+                .setRequired(true))
+        .addStringOption(option =>
+            option.setName('day')
                 .setDescription('Enter your birthday in the format MM/DD')
-                .setRequired(true)),
+                .setRequired(true))
+        .addStringOption(option =>
+            option.setName('year')
+                .setDescription('Enter your birthday in the format')),
     async execute(interaction) {
-        const date = interaction.options.getString('date');
+        const Day = interaction.options.getString('day');
+        const Month = interaction.options.getString('month');
+        const Year = interaction.options.getString('year');
+        const date = Month + '-' + Day + '-' + Year
         const userId = interaction.user.id;
         
         // Load existing birthdays from file
@@ -31,9 +41,10 @@ module.exports = {
             fs.writeFileSync('./birthdays.json', JSON.stringify(birthdays));
             await interaction.reply(`Your birthday has been recorded as ${date}.`);
             const dateString = date;
-            const [monthString, dayString] = dateString.split("/");
+            const [monthString, dayString, yearString] = dateString.split("/");
             const month = parseInt(monthString);
             const day = parseInt(dayString);
+            const year = parseInt(yearString);
         } catch (err) {
             console.error(err);
             await interaction.reply(`There was an error recording your birthday.`);
