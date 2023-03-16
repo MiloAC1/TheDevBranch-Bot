@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { openai } = require('../config.json'); // load API key from config file
+//const { openai } = require('config.json'); // load API key from config file
 const axios = require('axios');
 
 module.exports = {
@@ -19,7 +19,7 @@ module.exports = {
       }, {
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${openai.apiKey}`
+          'Authorization': `Bearer ${'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'}`
         }
       });
       const message = response.data.choices[0].text;
