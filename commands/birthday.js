@@ -30,6 +30,10 @@ module.exports = {
         try {
             fs.writeFileSync('./birthdays.json', JSON.stringify(birthdays));
             await interaction.reply(`Your birthday has been recorded as ${date}.`);
+            const dateString = date;
+            const [monthString, dayString] = dateString.split("/");
+            const month = parseInt(monthString);
+            const day = parseInt(dayString);
         } catch (err) {
             console.error(err);
             await interaction.reply(`There was an error recording your birthday.`);
