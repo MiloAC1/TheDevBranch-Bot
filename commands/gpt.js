@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('discord.js');
-const { openai } = require('config.json'); // load API key from config file
+const { openai } = require('../config.json'); // load API key from config file
 const axios = require('axios');
 
 module.exports = {
