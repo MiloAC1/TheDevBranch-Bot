@@ -22,7 +22,7 @@ module.exports = {
         }
       });
       const message = response.data.choices[0].text;
-      await interaction.reply(message);
+      await interaction.reply("GPT: "+message);
     } catch (error) {
       console.log(error);
       await interaction.reply('Something went wrong');
