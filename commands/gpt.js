@@ -15,7 +15,7 @@ module.exports = {
         max_tokens: 4000,
         n: 1,
         stop: '\n',
-        temperature: 1
+        temperature: .8
       }, {
         headers: {
           'Content-Type': 'application/json',
