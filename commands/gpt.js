@@ -12,7 +12,7 @@ module.exports = {
     try {
       const response = await axios.post('https://api.openai.com/v1/engines/davinci-codex/completions', {
         prompt: input,
-        max_tokens: 150,
+        max_tokens: 4000,
         n: 1,
         stop: '\n',
         temperature: 0.7
