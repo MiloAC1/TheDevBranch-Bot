@@ -43,9 +43,11 @@ module.exports = {
             const Year = interaction.options.getString('year')
 
             if (Year == null) {
-                 date = Month + '-' + Day
+                 date = Month + '-' + Day 
+                 givenYear = false
             } else {
                  date = Month + '-' + Day + '-' + Year
+                 givenYear = true
             }
 
             const userId = interaction.user.id;
