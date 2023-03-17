@@ -43,10 +43,10 @@ module.exports = {
             const Year = interaction.options.getInteger('year')
 
             if (Year == null) {
-                 date = Month + '-' + Day 
+                 date = Month + '/' + Day 
                  givenYear = false
             } else {
-                 date = Month + '-' + Day + '-' + Year
+                 date = Month + '/' + Day + '/' + Year
                  givenYear = true
             }
 
