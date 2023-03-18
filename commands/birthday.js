@@ -33,7 +33,14 @@ module.exports = {
             const user = interaction.options.getUser('user');
             const birthdays = JSON.parse(fs.readFileSync('./birthdays.json', 'utf8'));
             if (birthdays[user.id]) {
-                await interaction.reply(`${user.username}'s birthday is ${birthdays[user.id]}`);
+                const birthday = birthdays[user.id];
+                let dateMessage;
+                if (birthday.year) {
+                    dateMessage = `${user.username}'s birthday is ${birthday.month}/${birthday.day}/${birthday.year}.`;
+                } else {
+                    dateMessage = `${user.username}'s birthday is ${birthday.month}/${birthday.day}.`;
+                }
+                await interaction.reply(dateMessage);
             } else {
                 await interaction.reply(`Sorry, I couldn't find ${user.username}'s birthday.`);
             }
@@ -43,10 +50,8 @@ module.exports = {
             const Year = interaction.options.getInteger('year')
 
             if (Year == null) {
-                 date = Month + '/' + Day 
                  givenYear = false
             } else {
-                 date = Month + '/' + Day + '/' + Year
                  givenYear = true
             }
 
@@ -63,17 +68,23 @@ module.exports = {
             }
             
             // Add or update user's birthday
-            birthdays[userId] = date;
+            birthdays[userId] = {
+                month: Month,
+                day: Day,
+                year: givenYear ? Year : null
+            }
             
             // Save updated birthdays to file
             try {
                 fs.writeFileSync('./birthdays.json', JSON.stringify(birthdays));
-                await interaction.reply(`Your birthday has been recorded as ${date}.`);
-                //const dateString = date;
-                //const [monthString, dayString, yearString] = dateString.split("/");
-                //const month = parseInt(monthString);
-                //const day = parseInt(dayString);
-                //const year = parseInt(yearString);
+                let dateMessage;
+                if (givenYear) {
+                    dateMessage = `Your birthday has been recorded as ${Month}/${Day}/${Year}.`;
+                } else {
+                    dateMessage = `Your birthday has been recorded as ${Month}/${Day}.`;
+                }
+                
+                await interaction.reply(dateMessage);
             } catch (err) {
                 console.error(err);
                 await interaction.reply(`There was an error recording your birthday.`);
