@@ -29,6 +29,6 @@ module.exports = {
         
         connection.subscribe(player);
         
-        await interaction.reply(`Playing ${url} in ${voiceChannel.name}`);
+        await interaction.reply(`Playing ${url} in :sound:${voiceChannel.name}`);
     },
 };
