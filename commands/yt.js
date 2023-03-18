@@ -9,6 +9,7 @@ module.exports = {
               .setDescription('The url of the video')
               .setRequired(true)),
         async execute(interaction) {
+        const choisenUrl = interaction.options.getString('url');
         const voiceChannel = message.member.voice.channel;
         if (!voiceChannel) return message.reply('You must be in a voice channel to use this command');
         const permissions = voiceChannel.permissionsFor(message.client.user);
