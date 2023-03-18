@@ -4,7 +4,10 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('youtube')
         .setDescription('Plays a youtube video in a voice channel')
-        .setUsage('<youtube url>'),
+      .addStringOption(option =>
+            option.setName('url')
+              .setDescription('The url of the video')
+              .setRequired(true)),
         async execute(interaction) {
         const voiceChannel = message.member.voice.channel;
         if (!voiceChannel) return message.reply('You must be in a voice channel to use this command');
