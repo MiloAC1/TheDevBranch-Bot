@@ -4,8 +4,8 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName('youtube')
         .setDescription('Plays a youtube video in a voice channel')
-        .setUsage('<youtube url>')
-        .setAction(async (message, args) => {
+        .setUsage('<youtube url>'),
+        async execute(interaction) {
         const voiceChannel = message.member.voice.channel;
         if (!voiceChannel) return message.reply('You must be in a voice channel to use this command');
         const permissions = voiceChannel.permissionsFor(message.client.user);
@@ -13,5 +13,5 @@ module.exports = {
         const connection = await voiceChannel.join();
         const dispatcher = connection.play(ytdl(args[0], { filter: 'audioonly' }));
         dispatcher.on('finish', () => voiceChannel.leave());
-        })
+        }
 }
