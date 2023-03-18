@@ -1,21 +1,34 @@
-const { SlashCommandBuilder } = require('discord.js');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const ytdl = require('ytdl-core');
+const { joinVoiceChannel, createAudioPlayer, createAudioResource } = require('@discordjs/voice');
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('youtube')
-        .setDescription('Plays a youtube video in a voice channel')
-      .addStringOption(option =>
-            option.setName('url')
-              .setDescription('The url of the video')
-              .setRequired(true)),
-        async execute(interaction) {
-        const choisenUrl = interaction.options.getString('url');
-        const voiceChannel = message.member.voice.channel;
-        if (!voiceChannel) return message.reply('You must be in a voice channel to use this command');
-        const permissions = voiceChannel.permissionsFor(message.client.user);
-        if (!permissions.has('CONNECT') || !permissions.has('SPEAK')) return message.reply('I need the permissions to join and speak in your voice channel');
-        const connection = await voiceChannel.join();
-        const dispatcher = connection.play(ytdl(args[0], { filter: 'audioonly' }));
-        dispatcher.on('finish', () => voiceChannel.leave());
+        .setDescription('Plays a YouTube video in the voice channel')
+        .addStringOption(option => option.setName('url').setDescription('The URL of the YouTube video to play').setRequired(true)),
+    async execute(interaction) {
+        const url = interaction.options.getString('url');
+        const voiceChannel = interaction.member.voice.channel;
+        
+        if (!voiceChannel) {
+            return interaction.reply('You need to be in a voice channel to use this command!');
         }
-}
+        
+        const connection = joinVoiceChannel({
+            channelId: voiceChannel.id,
+            guildId: voiceChannel.guild.id,
+            adapterCreator: voiceChannel.guild.voiceAdapterCreator,
+        });
+        
+        const stream = ytdl(url, { filter: 'audioonly' });
+        const resource = createAudioResource(stream);
+        const player = createAudioPlayer();
+        
+        player.play(resource);
+        
+        connection.subscribe(player);
+        
+        await interaction.reply(`Playing ${url} in ${voiceChannel.name}`);
+    },
+};
